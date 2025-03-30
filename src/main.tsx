@@ -5,10 +5,11 @@ import App from './App.tsx'
 import './index.css'
 
 // Replace with your publishable Clerk key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || "pk_test_placeholder_key_for_development";
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Clerk Publishable Key");
+// For production, we should still log a warning if the key is missing
+if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
+  console.warn("Warning: Clerk Publishable Key is missing. Authentication features will not work properly. Please set the VITE_CLERK_PUBLISHABLE_KEY environment variable.");
 }
 
 createRoot(document.getElementById("root")!).render(
