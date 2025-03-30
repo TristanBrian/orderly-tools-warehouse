@@ -15,10 +15,21 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const navigate = useNavigate();
-  const { isSignedIn } = useUser();
+  
+  // Check if Clerk is available
+  const isClerkAvailable = typeof window !== 'undefined' && 
+    window.Clerk !== undefined;
+  
+  const { isSignedIn } = isClerkAvailable ? useUser() : { isSignedIn: true };
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
+
+  const DevModeButton = () => (
+    <Button variant="outline" size="sm" className="flex items-center">
+      <User className="w-4 h-4 mr-2" /> Dev User
+    </Button>
+  );
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b shadow-sm">
@@ -42,11 +53,9 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
           <Link to="/deals" className="text-sm font-medium hover:text-primary">
             Deals
           </Link>
-          <SignedIn>
-            <Link to="/inventory" className="text-sm font-medium hover:text-primary">
-              Inventory
-            </Link>
-          </SignedIn>
+          <Link to="/inventory" className="text-sm font-medium hover:text-primary">
+            Inventory
+          </Link>
         </nav>
 
         {/* Search and Cart (Desktop) */}
@@ -68,27 +77,32 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             </Button>
           </Link>
           
-          <SignedIn>
-            <UserButton 
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: "w-9 h-9",
-                }
-              }}
-            />
-          </SignedIn>
-          
-          <SignedOut>
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" onClick={() => navigate("/sign-in")}>
-                Sign In
-              </Button>
-              <Button onClick={() => navigate("/sign-up")}>
-                Sign Up
-              </Button>
-            </div>
-          </SignedOut>
+          {isClerkAvailable ? (
+            <>
+              <SignedIn>
+                <UserButton 
+                  afterSignOutUrl="/"
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-9 h-9",
+                    }
+                  }}
+                />
+              </SignedIn>
+              <SignedOut>
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" onClick={() => navigate("/sign-in")}>
+                    Sign In
+                  </Button>
+                  <Button onClick={() => navigate("/sign-up")}>
+                    Sign Up
+                  </Button>
+                </div>
+              </SignedOut>
+            </>
+          ) : (
+            <DevModeButton />
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -104,16 +118,20 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             )}
           </Link>
           
-          <SignedIn>
-            <UserButton 
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: "w-8 h-8",
-                }
-              }}
-            />
-          </SignedIn>
+          {isClerkAvailable ? (
+            <SignedIn>
+              <UserButton 
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "w-8 h-8",
+                  }
+                }}
+              />
+            </SignedIn>
+          ) : (
+            <DevModeButton />
+          )}
           
           <Button
             variant="ghost"
@@ -134,32 +152,27 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             <Link to="/shop" className="text-lg font-medium" onClick={toggleMobileMenu}>Shop</Link>
             <Link to="/categories" className="text-lg font-medium" onClick={toggleMobileMenu}>Categories</Link>
             <Link to="/deals" className="text-lg font-medium" onClick={toggleMobileMenu}>Deals</Link>
+            <Link to="/inventory" className="text-lg font-medium" onClick={toggleMobileMenu}>Inventory</Link>
+            <Link to="/dashboard" className="text-lg font-medium" onClick={toggleMobileMenu}>Dashboard</Link>
             
-            <SignedIn>
-              <Link to="/inventory" className="text-lg font-medium" onClick={toggleMobileMenu}>
-                Inventory
-              </Link>
-              <Link to="/dashboard" className="text-lg font-medium" onClick={toggleMobileMenu}>
-                Dashboard
-              </Link>
-            </SignedIn>
-            
-            <SignedOut>
-              <div className="pt-2 flex flex-col space-y-2">
-                <Button variant="outline" className="w-full" onClick={() => { 
-                  navigate("/sign-in"); 
-                  toggleMobileMenu(); 
-                }}>
-                  Sign In
-                </Button>
-                <Button className="w-full" onClick={() => { 
-                  navigate("/sign-up"); 
-                  toggleMobileMenu(); 
-                }}>
-                  Sign Up
-                </Button>
-              </div>
-            </SignedOut>
+            {isClerkAvailable && (
+              <SignedOut>
+                <div className="pt-2 flex flex-col space-y-2">
+                  <Button variant="outline" className="w-full" onClick={() => { 
+                    navigate("/sign-in"); 
+                    toggleMobileMenu(); 
+                  }}>
+                    Sign In
+                  </Button>
+                  <Button className="w-full" onClick={() => { 
+                    navigate("/sign-up"); 
+                    toggleMobileMenu(); 
+                  }}>
+                    Sign Up
+                  </Button>
+                </div>
+              </SignedOut>
+            )}
             
             <div className="pt-2">
               <Button variant="outline" className="w-full" onClick={() => { 
