@@ -66,7 +66,7 @@ const CartPage: React.FC = () => {
   };
   
   const calculateTotal = () => {
-    return calculateSubtotal() + calculateTax() + (calculateSubtotal() >= 100 ? 0 : 10); // Free shipping for orders over $100
+    return calculateSubtotal() + calculateTax() + (calculateSubtotal() >= 10000 ? 0 : 500); // Free shipping for orders over KSh 10,000
   };
   
   const handleCheckout = () => {
@@ -74,6 +74,11 @@ const CartPage: React.FC = () => {
       title: "Checkout Initiated",
       description: "This is a demo - no actual payment will be processed."
     });
+  };
+  
+  // Format price in KSh
+  const formatPrice = (price: number) => {
+    return `KSh ${price.toLocaleString()}`;
   };
   
   return (
@@ -117,7 +122,7 @@ const CartPage: React.FC = () => {
                           <p className="text-sm text-gray-500 capitalize">{product.category}</p>
                         </div>
                         <div className="text-lg font-bold text-hardware-blue mt-2 md:mt-0">
-                          ${product.price.toFixed(2)}
+                          {formatPrice(product.price)}
                         </div>
                       </div>
                       <div className="flex flex-col md:flex-row md:items-center justify-between">
@@ -181,24 +186,24 @@ const CartPage: React.FC = () => {
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
-                      <span>${calculateSubtotal().toFixed(2)}</span>
+                      <span>{formatPrice(calculateSubtotal())}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Tax (7.5%)</span>
-                      <span>${calculateTax().toFixed(2)}</span>
+                      <span>{formatPrice(calculateTax())}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Shipping</span>
-                      <span>{calculateSubtotal() >= 100 ? 'Free' : '$10.00'}</span>
+                      <span>{calculateSubtotal() >= 10000 ? 'Free' : 'KSh 500'}</span>
                     </div>
                     <Separator className="my-4" />
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span>${calculateTotal().toFixed(2)}</span>
+                      <span>{formatPrice(calculateTotal())}</span>
                     </div>
-                    {calculateSubtotal() < 100 && (
+                    {calculateSubtotal() < 10000 && (
                       <div className="text-sm text-orange-600 mt-2">
-                        Add ${(100 - calculateSubtotal()).toFixed(2)} more to qualify for free shipping!
+                        Add {formatPrice(10000 - calculateSubtotal())} more to qualify for free shipping!
                       </div>
                     )}
                   </div>

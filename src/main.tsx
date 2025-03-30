@@ -13,6 +13,7 @@ const hasValidClerkKey = PUBLISHABLE_KEY && typeof PUBLISHABLE_KEY === 'string' 
 // Log appropriate messages
 if (!hasValidClerkKey) {
   console.warn("Warning: Valid Clerk Publishable Key is missing. Running in development mode without authentication. To enable authentication, set the VITE_CLERK_PUBLISHABLE_KEY environment variable.");
+  console.info("To test admin features, use an email with 'admin' in it, for example: 'admin@example.com' or 'john@admin.com'");
 }
 
 // Create root for rendering
@@ -38,5 +39,6 @@ if (hasValidClerkKey) {
   );
 } else {
   // Without Clerk in development mode
+  console.info("Development mode: Simulating authentication. Admin rights are given to users with 'admin' in their email.");
   root.render(<App />);
 }
