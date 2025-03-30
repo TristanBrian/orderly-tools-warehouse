@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Truck, Clock, Tool } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Truck, Clock, Hammer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -94,7 +94,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="flex flex-col items-center text-center p-4">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
-                <Tool className="h-6 w-6 text-primary" />
+                <Hammer className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-semibold mb-2">Professional Tools</h3>
               <p className="text-sm text-gray-500">For experts and beginners</p>
