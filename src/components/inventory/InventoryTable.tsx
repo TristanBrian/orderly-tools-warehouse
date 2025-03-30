@@ -29,9 +29,10 @@ import { mockInventoryData } from "@/data/mockInventory";
 
 interface InventoryTableProps {
   lowStockOnly?: boolean;
+  isAdmin?: boolean;
 }
 
-const InventoryTable: React.FC<InventoryTableProps> = ({ lowStockOnly = false }) => {
+const InventoryTable: React.FC<InventoryTableProps> = ({ lowStockOnly = false, isAdmin = false }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -147,7 +148,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ lowStockOnly = false })
                       {item.quantity}
                     </div>
                   </TableCell>
-                  <TableCell>${item.price.toFixed(2)}</TableCell>
+                  <TableCell>KSh {item.price.toFixed(2)}</TableCell>
                   <TableCell>
                     <StockStatusBadge quantity={item.quantity} />
                   </TableCell>
@@ -159,10 +160,14 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ lowStockOnly = false })
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                          <Edit size={14} className="mr-2" /> Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>Update Stock</DropdownMenuItem>
+                        {isAdmin ? (
+                          <>
+                            <DropdownMenuItem>
+                              <Edit size={14} className="mr-2" /> Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>Update Stock</DropdownMenuItem>
+                          </>
+                        ) : null}
                         <DropdownMenuItem>History</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
