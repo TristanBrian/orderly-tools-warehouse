@@ -70,9 +70,9 @@ const ProductCard: React.FC<{ product: any }> = ({ product }) => {
           </Badge>
           <h3 className="font-semibold text-lg mb-1 line-clamp-1">{product.name}</h3>
           <div className="flex items-center gap-2 mb-3">
-            <span className="font-bold text-hardware-blue text-lg">${product.price.toFixed(2)}</span>
+            <span className="font-bold text-hardware-blue text-lg">KSh {product.price.toFixed(2)}</span>
             {product.originalPrice && (
-              <span className="text-gray-500 text-sm line-through">${product.originalPrice.toFixed(2)}</span>
+              <span className="text-gray-500 text-sm line-through">KSh {product.originalPrice.toFixed(2)}</span>
             )}
           </div>
           {product.saleEnds && (
