@@ -56,10 +56,10 @@ const HomePage: React.FC = () => {
               Find the perfect tools and equipment for your next project. From power tools to safety gear, we have everything you need.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-hardware-orange hover:bg-hardware-orange/90">
+              <Button asChild size="lg" className="bg-hardware-orange hover:bg-hardware-orange/90 shadow-lg">
                 <Link to="/shop">Shop Now</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/20">
+              <Button asChild variant="outline" size="lg" className="bg-white/10 border-white text-white hover:bg-white/30 hover:text-white shadow-lg">
                 <Link to="/inventory">Check Inventory</Link>
               </Button>
             </div>
