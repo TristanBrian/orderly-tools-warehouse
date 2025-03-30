@@ -4,11 +4,11 @@ import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+// Check if we have a valid Clerk key (for conditional rendering)
+const hasValidClerkKey = typeof import.meta.env.VITE_CLERK_PUBLISHABLE_KEY === 'string' && 
+  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY.startsWith("pk_");
+
 const Inventory = () => {
-  // Check if Clerk is available
-  const isClerkAvailable = typeof window !== 'undefined' && 
-    window.Clerk !== undefined;
-  
   const InventoryContent = () => (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -28,10 +28,10 @@ const Inventory = () => {
     </div>
   );
 
-  // If Clerk is available, use its auth components, otherwise just show the content
+  // If Clerk is available with valid key, use its auth components, otherwise just show the content
   return (
     <>
-      {isClerkAvailable ? (
+      {hasValidClerkKey ? (
         <>
           <SignedIn>
             <InventoryContent />

@@ -8,17 +8,20 @@ import './index.css'
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 // Check if we have a valid key (starts with pk_)
-const hasValidClerkKey = PUBLISHABLE_KEY && PUBLISHABLE_KEY.startsWith("pk_");
+const hasValidClerkKey = PUBLISHABLE_KEY && typeof PUBLISHABLE_KEY === 'string' && PUBLISHABLE_KEY.startsWith("pk_");
 
 // Log appropriate messages
 if (!hasValidClerkKey) {
   console.warn("Warning: Valid Clerk Publishable Key is missing. Running in development mode without authentication. To enable authentication, set the VITE_CLERK_PUBLISHABLE_KEY environment variable.");
 }
 
+// Create root for rendering
+const root = createRoot(document.getElementById("root")!);
+
 // Render the application
 if (hasValidClerkKey) {
   // With Clerk authentication if we have a valid key
-  createRoot(document.getElementById("root")!).render(
+  root.render(
     <ClerkProvider
       publishableKey={PUBLISHABLE_KEY}
       clerkJSVersion="5.56.0-snapshot.v20250312225817"
@@ -35,5 +38,5 @@ if (hasValidClerkKey) {
   );
 } else {
   // Without Clerk in development mode
-  createRoot(document.getElementById("root")!).render(<App />);
+  root.render(<App />);
 }

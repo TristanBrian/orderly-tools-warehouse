@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { useUser, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+
+// Check if we have a valid Clerk key (for conditional rendering)
+const hasValidClerkKey = typeof import.meta.env.VITE_CLERK_PUBLISHABLE_KEY === 'string' && 
+  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY.startsWith("pk_");
 
 interface NavbarProps {
   cartItemCount?: number;
@@ -16,11 +19,8 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const navigate = useNavigate();
   
-  // Check if Clerk is available
-  const isClerkAvailable = typeof window !== 'undefined' && 
-    window.Clerk !== undefined;
-  
-  const { isSignedIn } = isClerkAvailable ? useUser() : { isSignedIn: true };
+  // Only use useUser if Clerk is available with valid key
+  const { isSignedIn } = hasValidClerkKey ? useUser() : { isSignedIn: true };
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
@@ -77,7 +77,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             </Button>
           </Link>
           
-          {isClerkAvailable ? (
+          {hasValidClerkKey ? (
             <>
               <SignedIn>
                 <UserButton 
@@ -118,7 +118,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             )}
           </Link>
           
-          {isClerkAvailable ? (
+          {hasValidClerkKey ? (
             <SignedIn>
               <UserButton 
                 afterSignOutUrl="/"
@@ -155,7 +155,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             <Link to="/inventory" className="text-lg font-medium" onClick={toggleMobileMenu}>Inventory</Link>
             <Link to="/dashboard" className="text-lg font-medium" onClick={toggleMobileMenu}>Dashboard</Link>
             
-            {isClerkAvailable && (
+            {hasValidClerkKey && (
               <SignedOut>
                 <div className="pt-2 flex flex-col space-y-2">
                   <Button variant="outline" className="w-full" onClick={() => { 

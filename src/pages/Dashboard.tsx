@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useUser, SignedIn, SignedOut } from "@clerk/clerk-react";
 import Navbar from '@/components/Navbar';
@@ -6,13 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Package, ShoppingCart, User, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Check if we have a valid Clerk key (for conditional rendering)
+const hasValidClerkKey = typeof import.meta.env.VITE_CLERK_PUBLISHABLE_KEY === 'string' && 
+  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY.startsWith("pk_");
+
 const Dashboard: React.FC = () => {
-  // Check if Clerk is available
-  const isClerkAvailable = typeof window !== 'undefined' && 
-    window.Clerk !== undefined;
-  
-  // Get user if Clerk is available
-  const { user } = isClerkAvailable ? useUser() : { user: { firstName: 'Dev User' } };
+  // Only use useUser if Clerk is available with valid key
+  const { user } = hasValidClerkKey ? useUser() : { user: { firstName: 'Dev User' } };
 
   const DashboardContent = () => (
     <div className="min-h-screen flex flex-col">
@@ -78,10 +79,10 @@ const Dashboard: React.FC = () => {
     </div>
   );
 
-  // If Clerk is available, use its auth components, otherwise just show the content
+  // If Clerk is available with valid key, use its auth components, otherwise just show the content
   return (
     <>
-      {isClerkAvailable ? (
+      {hasValidClerkKey ? (
         <>
           <SignedIn>
             <DashboardContent />
