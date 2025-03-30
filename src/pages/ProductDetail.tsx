@@ -25,7 +25,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <CardContent className="p-4">
           <h3 className="font-semibold text-lg mb-1 line-clamp-1">{product.name}</h3>
           <div className="flex justify-between items-center mt-2">
-            <span className="font-bold text-hardware-blue">${product.price.toFixed(2)}</span>
+            <span className="font-bold text-hardware-blue">KSh {product.price.toLocaleString()}</span>
             <div className="text-sm text-gray-500">{product.inventory > 0 ? 'In Stock' : 'Out of Stock'}</div>
           </div>
         </CardContent>
@@ -125,7 +125,7 @@ const ProductDetailPage: React.FC = () => {
                   </div>
                   <span className="text-sm text-gray-500 ml-2">{product.rating} ({product.reviews} reviews)</span>
                 </div>
-                <p className="text-xl font-bold text-hardware-blue mb-4">${product.price.toFixed(2)}</p>
+                <p className="text-xl font-bold text-hardware-blue mb-4">KSh {product.price.toLocaleString()}</p>
                 <p className="text-gray-600">{product.description}</p>
               </div>
               
@@ -179,7 +179,7 @@ const ProductDetailPage: React.FC = () => {
               <div className="border-t pt-6 space-y-3">
                 <div className="flex items-center">
                   <Truck className="h-5 w-5 mr-3 text-hardware-blue" />
-                  <span className="text-sm">Free shipping on orders over $100</span>
+                  <span className="text-sm">Free shipping on orders over KSh 10,000</span>
                 </div>
                 <div className="flex items-center">
                   <ShieldCheck className="h-5 w-5 mr-3 text-hardware-blue" />

@@ -69,7 +69,7 @@ const ProductCard: React.FC<{ product: Product; view: "grid" | "list" }> = ({ pr
           </div>
           
           <div className="flex justify-between items-center mt-2">
-            <span className="font-bold text-hardware-blue text-lg">${product.price.toFixed(2)}</span>
+            <span className="font-bold text-hardware-blue text-lg">KSh {product.price.toLocaleString()}</span>
             <div className={`text-sm ${product.inventory > 0 ? 'text-green-600' : 'text-red-500'}`}>
               {product.inventory > 10 
                 ? 'In Stock' 
@@ -190,7 +190,7 @@ const ShopPage: React.FC = () => {
       <main className="flex-grow">
         <div className="bg-gradient-to-r from-hardware-blue to-hardware-lightBlue text-white py-8">
           <div className="container px-4 md:px-6">
-            <h1 className="text-2xl md:text-3xl font-bold">Shop Hardware Products</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Mwananchi Hardware Shop</h1>
             <p className="mt-2">Browse our collection of quality tools and equipment</p>
           </div>
         </div>

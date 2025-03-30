@@ -16,7 +16,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'CPU-I9-12900K',
     category: 'Processors',
     quantity: 15,
-    price: 589.99,
+    price: 58999,
     lastUpdated: '2023-10-15'
   },
   {
@@ -25,7 +25,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'CPU-R9-5950X',
     category: 'Processors',
     quantity: 8,
-    price: 549.99,
+    price: 54999,
     lastUpdated: '2023-10-17'
   },
   {
@@ -34,7 +34,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'GPU-RTX-4090',
     category: 'Graphics Cards',
     quantity: 5,
-    price: 1599.99,
+    price: 159999,
     lastUpdated: '2023-10-12'
   },
   {
@@ -43,7 +43,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'GPU-RX-7900XTX',
     category: 'Graphics Cards',
     quantity: 7,
-    price: 999.99,
+    price: 99999,
     lastUpdated: '2023-10-18'
   },
   {
@@ -52,7 +52,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'SSD-980PRO-2TB',
     category: 'Storage',
     quantity: 30,
-    price: 249.99,
+    price: 24999,
     lastUpdated: '2023-10-05'
   },
   {
@@ -61,7 +61,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'MEM-Z5-32GB',
     category: 'Memory',
     quantity: 25,
-    price: 189.99,
+    price: 18999,
     lastUpdated: '2023-10-08'
   },
   {
@@ -70,7 +70,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'MON-PG32UQX',
     category: 'Peripherals',
     quantity: 3,
-    price: 2999.99,
+    price: 299999,
     lastUpdated: '2023-10-11'
   },
   {
@@ -79,7 +79,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'MOU-GPRO-X',
     category: 'Peripherals',
     quantity: 12,
-    price: 149.99,
+    price: 14999,
     lastUpdated: '2023-10-13'
   },
   {
@@ -88,7 +88,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'HDD-IRON-16TB',
     category: 'Storage',
     quantity: 10,
-    price: 329.99,
+    price: 32999,
     lastUpdated: '2023-10-16'
   },
   {
@@ -97,7 +97,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'PSU-RM850X',
     category: 'Power Supplies',
     quantity: 0,
-    price: 139.99,
+    price: 13999,
     lastUpdated: '2023-10-10'
   },
   {
@@ -106,7 +106,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'COOL-X73-RGB',
     category: 'Cooling',
     quantity: 6,
-    price: 199.99,
+    price: 19999,
     lastUpdated: '2023-10-20'
   },
   {
@@ -115,7 +115,7 @@ export const mockInventoryData: InventoryItem[] = [
     sku: 'SSD-SN850-1TB',
     category: 'Storage',
     quantity: 0,
-    price: 149.99,
+    price: 14999,
     lastUpdated: '2023-10-07'
   }
 ];

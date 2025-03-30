@@ -25,7 +25,7 @@ const Inventory = () => {
       <main className="flex-grow">
         <div className="bg-hardware-blue text-white py-8">
           <div className="container px-4 md:px-6">
-            <h1 className="text-2xl md:text-3xl font-bold">Inventory Management</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Mwananchi Hardware Inventory</h1>
             <p className="mt-2">Control and monitor your product inventory</p>
           </div>
         </div>

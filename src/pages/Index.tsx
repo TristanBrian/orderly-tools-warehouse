@@ -26,7 +26,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           </Badge>
           <h3 className="font-semibold text-lg mb-1 line-clamp-1">{product.name}</h3>
           <div className="flex justify-between items-center mt-2">
-            <span className="font-bold text-hardware-blue text-lg">${product.price.toFixed(2)}</span>
+            <span className="font-bold text-hardware-blue text-lg">KSh {product.price.toLocaleString()}</span>
             <div className="text-sm text-gray-500">{product.inventory > 0 ? 'In Stock' : 'Out of Stock'}</div>
           </div>
         </CardContent>
@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
               Quality Hardware
             </Badge>
             <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
-              Professional Hardware for Every Project
+              Mwananchi Hardware - For Every Project
             </h1>
             <p className="text-lg md:text-xl mb-8 text-white/80">
               Find the perfect tools and equipment for your next project. From power tools to safety gear, we have everything you need.
@@ -76,7 +76,7 @@ const HomePage: React.FC = () => {
                 <Truck className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-semibold mb-2">Free Shipping</h3>
-              <p className="text-sm text-gray-500">On orders over $100</p>
+              <p className="text-sm text-gray-500">On orders over KSh 10,000</p>
             </div>
             <div className="flex flex-col items-center text-center p-4">
               <div className="bg-primary/10 p-3 rounded-full mb-4">
@@ -130,7 +130,7 @@ const HomePage: React.FC = () => {
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
             <p className="text-lg mb-8 text-white/80">
-              Browse our extensive collection of professional-grade hardware and tools.
+              Browse Mwananchi Hardware's extensive collection of professional-grade hardware and tools.
             </p>
             <Button asChild size="lg" className="bg-hardware-orange hover:bg-hardware-orange/90">
               <Link to="/shop">Shop Now</Link>
