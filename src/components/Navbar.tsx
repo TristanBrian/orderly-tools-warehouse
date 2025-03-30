@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Search } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { useUser, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 interface NavbarProps {
   cartItemCount?: number;
@@ -13,6 +14,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isSignedIn } = useUser();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
@@ -39,9 +42,11 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
           <Link to="/deals" className="text-sm font-medium hover:text-primary">
             Deals
           </Link>
-          <Link to="/inventory" className="text-sm font-medium hover:text-primary">
-            Inventory
-          </Link>
+          <SignedIn>
+            <Link to="/inventory" className="text-sm font-medium hover:text-primary">
+              Inventory
+            </Link>
+          </SignedIn>
         </nav>
 
         {/* Search and Cart (Desktop) */}
@@ -49,6 +54,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
           <Button variant="ghost" size="icon" onClick={toggleSearch} aria-label="Search">
             <Search className="w-5 h-5" />
           </Button>
+          
           <Link to="/cart">
             <Button variant="ghost" size="icon" className="relative" aria-label="Cart">
               <ShoppingCart className="w-5 h-5" />
@@ -61,6 +67,28 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
               )}
             </Button>
           </Link>
+          
+          <SignedIn>
+            <UserButton 
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  avatarBox: "w-9 h-9",
+                }
+              }}
+            />
+          </SignedIn>
+          
+          <SignedOut>
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" onClick={() => navigate("/sign-in")}>
+                Sign In
+              </Button>
+              <Button onClick={() => navigate("/sign-up")}>
+                Sign Up
+              </Button>
+            </div>
+          </SignedOut>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -75,6 +103,18 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
               </Badge>
             )}
           </Link>
+          
+          <SignedIn>
+            <UserButton 
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  avatarBox: "w-8 h-8",
+                }
+              }}
+            />
+          </SignedIn>
+          
           <Button
             variant="ghost"
             size="icon"
@@ -94,9 +134,38 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             <Link to="/shop" className="text-lg font-medium" onClick={toggleMobileMenu}>Shop</Link>
             <Link to="/categories" className="text-lg font-medium" onClick={toggleMobileMenu}>Categories</Link>
             <Link to="/deals" className="text-lg font-medium" onClick={toggleMobileMenu}>Deals</Link>
-            <Link to="/inventory" className="text-lg font-medium" onClick={toggleMobileMenu}>Inventory</Link>
+            
+            <SignedIn>
+              <Link to="/inventory" className="text-lg font-medium" onClick={toggleMobileMenu}>
+                Inventory
+              </Link>
+              <Link to="/dashboard" className="text-lg font-medium" onClick={toggleMobileMenu}>
+                Dashboard
+              </Link>
+            </SignedIn>
+            
+            <SignedOut>
+              <div className="pt-2 flex flex-col space-y-2">
+                <Button variant="outline" className="w-full" onClick={() => { 
+                  navigate("/sign-in"); 
+                  toggleMobileMenu(); 
+                }}>
+                  Sign In
+                </Button>
+                <Button className="w-full" onClick={() => { 
+                  navigate("/sign-up"); 
+                  toggleMobileMenu(); 
+                }}>
+                  Sign Up
+                </Button>
+              </div>
+            </SignedOut>
+            
             <div className="pt-2">
-              <Button className="w-full" onClick={() => { toggleSearch(); toggleMobileMenu(); }}>
+              <Button variant="outline" className="w-full" onClick={() => { 
+                toggleSearch(); 
+                toggleMobileMenu(); 
+              }}>
                 <Search className="w-4 h-4 mr-2" /> Search Products
               </Button>
             </div>
